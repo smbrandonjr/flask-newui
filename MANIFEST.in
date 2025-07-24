@@ -1,0 +1,23 @@
+# Include package metadata
+include README.md
+include LICENSE
+include CHANGELOG.md
+include requirements.txt
+
+# Include static assets
+recursive-include newui/static *.js *.css
+
+# Include documentation
+recursive-include docs *.md *.rst *.txt
+
+# Include examples
+recursive-include examples *.py *.html *.md
+
+# Exclude unwanted files
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude *.so
+global-exclude .git*
+prune tests
+prune .pytest_cache

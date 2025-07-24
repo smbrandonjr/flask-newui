@@ -1,0 +1,245 @@
+/**
+ * NewUI Minimal Default Styles
+ * These styles provide basic functionality without imposing design decisions
+ */
+
+/* Loading states */
+.ui-loading {
+    position: relative;
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Only apply the default spinner to elements that don't have specific loading handling */
+.ui-loading:not(.loading-wrapper):not(.btn)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #333;
+    border-radius: 50%;
+    animation: ui-spin 1s linear infinite;
+}
+
+@keyframes ui-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Disable visual feedback */
+[data-ui-component] {
+    transition: opacity 0.3s ease;
+}
+
+[data-ui-component].ui-updating {
+    opacity: 0.7;
+}
+
+/* Form enhancements */
+form[data-ui-submit] {
+    position: relative;
+}
+
+/* Error states */
+.ui-error {
+    border-color: #dc3545 !important;
+}
+
+.ui-error-message {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}
+
+/* Success states */
+.ui-success {
+    border-color: #28a745 !important;
+}
+
+.ui-success-message {
+    color: #28a745;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}
+
+/* Hidden elements */
+[data-ui-show="false"],
+[data-ui-hide="true"] {
+    display: none !important;
+}
+
+/* Disabled state */
+[data-ui-disabled="true"],
+.ui-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* Focus states for accessibility */
+[data-ui-component]:focus-within {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Utility classes */
+.ui-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Animation helpers */
+.ui-fade-in {
+    animation: ui-fadeIn 0.3s ease-in;
+}
+
+.ui-fade-out {
+    animation: ui-fadeOut 0.3s ease-out;
+}
+
+@keyframes ui-fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes ui-fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Component containers */
+[data-ui-component] {
+    box-sizing: border-box;
+}
+
+[data-ui-component] *,
+[data-ui-component] *::before,
+[data-ui-component] *::after {
+    box-sizing: inherit;
+}
+
+/* Loading State Components */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-overlay .loading-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.loading-wrapper {
+    position: relative;
+}
+
+.loading-wrapper .loading-state {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.loading-wrapper .content-state {
+    transition: opacity 0.3s ease;
+}
+
+.loading-wrapper.ui-loading .content-state {
+    opacity: 0.5;
+}
+
+/* Skeleton Loading */
+.skeleton {
+    animation: ui-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-line {
+    height: 1rem;
+    background: #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    animation: ui-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-line:last-child {
+    margin-bottom: 0;
+}
+
+@keyframes ui-skeleton-pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Enhanced spinner sizes */
+.spinner-lg {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Loading button enhancements */
+.btn.ui-loading {
+    pointer-events: none;
+}
+
+/* Loading states for different elements */
+input.ui-loading,
+select.ui-loading,
+textarea.ui-loading {
+    background-image: url("data:image/svg+xml,%3csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3e%3cg fill='none' fill-rule='evenodd'%3e%3cg fill='%23999' fill-rule='nonzero'%3e%3ccircle cx='8' cy='8' r='2'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 16px;
+    animation: ui-spin 1s linear infinite;
+    pointer-events: none;
+}
+
+/* Fade transitions for loading states */
+.ui-loading-fade-enter {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ui-loading-fade-enter-active {
+    opacity: 1;
+}
+
+.ui-loading-fade-exit {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.ui-loading-fade-exit-active {
+    opacity: 0;
+}

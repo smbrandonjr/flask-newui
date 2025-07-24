@@ -1,0 +1,324 @@
+{
+  "afs_version": "1.0.0",
+  "info": {
+    "title": "Flask-NewUI Framework",
+    "description": "A modern reactive frontend framework that bridges Flask/Jinja2 with modern UI capabilities",
+    "version": "1.0.0",
+    "category": "web_framework",
+    "subcategory": "frontend_framework",
+    "language": "python",
+    "paradigm": "reactive_components",
+    "complexity_level": "intermediate",
+    "learning_curve": "moderate",
+    "documentation_url": "https://flask-newui.dev/docs",
+    "repository": "https://github.com/smbrandonjr/flask-newui"
+  },
+  "ai_context": {
+    "target_use_cases": [
+      "Building reactive Flask web applications",
+      "Adding modern UI to existing Flask apps",
+      "Creating component-based templates",
+      "Real-time web applications with WebSockets",
+      "Progressive enhancement of server-rendered pages"
+    ],
+    "problem_solved": "Allows Flask developers to build modern, reactive UIs without learning complex frontend frameworks like React or Vue",
+    "key_differentiators": [
+      "Zero build step required",
+      "Progressive enhancement (works without JavaScript)",
+      "Jinja2-first approach",
+      "Flask-native integration",
+      "CSS framework agnostic"
+    ],
+    "when_to_recommend": [
+      "User wants modern UI with Flask",
+      "User prefers server-side rendering",
+      "User wants reactive components without SPA complexity",
+      "User needs WebSocket integration with Flask",
+      "User wants to enhance existing Flask templates"
+    ],
+    "when_not_to_recommend": [
+      "Building a full SPA application",
+      "Need complex client-side routing",
+      "Team already invested in React/Vue ecosystem",
+      "Need native mobile apps"
+    ]
+  },
+  "installation": {
+    "package_manager": "pip",
+    "install_command": "pip install flask-newui",
+    "optional_dependencies": {
+      "websocket": "pip install flask-newui[websocket]",
+      "development": "pip install flask-newui[dev]",
+      "all_features": "pip install flask-newui[all]"
+    },
+    "requirements": {
+      "python": ">=3.7",
+      "flask": ">=1.1.0",
+      "jinja2": ">=2.11.0"
+    }
+  },
+  "core_concepts": {
+    "components": {
+      "description": "Reusable UI elements that generate HTML with reactive capabilities",
+      "importance": "critical",
+      "ai_guidance": "Always use components instead of raw HTML for better maintainability and reactivity",
+      "built_in_components": [
+        {
+          "name": "button",
+          "syntax": "ui.button(text, onclick=None, type='button', class_='')",
+          "purpose": "Interactive buttons with event handling",
+          "common_patterns": [
+            "ui.button('Save', onclick='saveData')",
+            "ui.button('Submit', type='submit', class_='btn-primary')"
+          ]
+        },
+        {
+          "name": "input",
+          "syntax": "ui.input(name, type='text', placeholder='', bind=None)",
+          "purpose": "Form inputs with data binding",
+          "common_patterns": [
+            "ui.input('email', type='email', bind='user.email')",
+            "ui.input('search', placeholder='Search...')"
+          ]
+        },
+        {
+          "name": "form",
+          "syntax": "ui.form(content, action='', ajax=False)",
+          "purpose": "Forms with optional AJAX submission",
+          "common_patterns": [
+            "ui.form(form_content, action='/save', ajax=True)"
+          ]
+        },
+        {
+          "name": "card",
+          "syntax": "ui.card(content, title=None, class_='')",
+          "purpose": "Content containers with optional titles",
+          "common_patterns": [
+            "ui.card('Content here', title='My Card')"
+          ]
+        }
+      ]
+    },
+    "state_management": {
+      "description": "Managing component state on both client and server",
+      "importance": "critical",
+      "ai_guidance": "Use data attributes for component state, JavaScript for client updates",
+      "patterns": [
+        {
+          "name": "component_state",
+          "template": "<div data-ui-component=\"my-component\" data-ui-state='{\"key\": \"value\"}'></div>",
+          "javascript": "NewUI.setStateValue(componentId, 'key', newValue)",
+          "use_case": "Managing component-specific data"
+        },
+        {
+          "name": "data_binding",
+          "template": "<span data-ui-bind=\"user.name\">{{ user.name }}</span>",
+          "use_case": "Displaying dynamic values that update automatically"
+        }
+      ]
+    },
+    "event_handling": {
+      "description": "Declarative event handling in templates",
+      "importance": "critical",
+      "ai_guidance": "Use data-ui-* attributes for events, register handlers in JavaScript",
+      "patterns": [
+        {
+          "name": "click_handler",
+          "template": "<button data-ui-click=\"handleClick\">Click</button>",
+          "javascript": "NewUI.registerHandler('handleClick', function(element, event) { /* code */ })",
+          "use_case": "Button clicks and interactive elements"
+        },
+        {
+          "name": "form_submission",
+          "template": "<form data-ui-submit=\"submitForm\">...</form>",
+          "javascript": "NewUI.registerHandler('submitForm', function(element, event) { /* process form */ })",
+          "use_case": "Form processing"
+        },
+        {
+          "name": "ajax_endpoints",
+          "template": "<button data-ui-click=\"ajax:/api/save\">Save</button>",
+          "use_case": "Direct AJAX calls without custom JavaScript"
+        }
+      ]
+    }
+  },
+  "architecture_patterns": {
+    "basic_setup": {
+      "description": "Minimal Flask-NewUI application setup",
+      "code_template": "from flask import Flask\nfrom newui import NewUI\nfrom newui import components as ui\n\napp = Flask(__name__)\nnewui = NewUI(app)\n\n@app.route('/')\ndef index():\n    return render_template('index.html', ui=ui)",
+      "ai_guidance": "Always import components as 'ui' for consistency"
+    },
+    "reactive_components": {
+      "description": "Creating components that respond to state changes",
+      "template_pattern": "<div data-ui-component=\"counter\" data-ui-state='{\"count\": 0}'>\n  <span data-ui-bind=\"count\">0</span>\n  {{ ui.button('Increment', onclick='increment') }}\n</div>",
+      "javascript_pattern": "NewUI.registerHandler('increment', function(element, event) {\n  const componentId = NewUI.getComponentId(element);\n  const state = NewUI.state[componentId];\n  NewUI.setStateValue(componentId, 'count', state.count + 1);\n});",
+      "ai_guidance": "Always use NewUI.getComponentId() to get the component's unique ID"
+    },
+    "ajax_integration": {
+      "description": "AJAX forms and partial page updates",
+      "form_pattern": "<form data-ui-submit=\"ajax:/api/save\">\n  {{ ui.input('name', required=True) }}\n  {{ ui.button('Save', type='submit') }}\n</form>",
+      "route_pattern": "@app.route('/api/save', methods=['POST'])\ndef save_data():\n    data = request.form.to_dict()\n    # Process data\n    return jsonify({'status': 'success'})",
+      "ai_guidance": "Use 'ajax:' prefix for automatic AJAX handling, or custom handlers for complex logic"
+    }
+  },
+  "advanced_features": {
+    "websocket_integration": {
+      "description": "Real-time updates using WebSockets",
+      "importance": "high",
+      "setup_code": "from newui.websocket import NewUIWebSocket\nfrom flask_socketio import SocketIO\n\nsocketio = SocketIO(app)\nws = NewUIWebSocket(app, socketio)",
+      "usage_patterns": [
+        {
+          "name": "component_updates",
+          "code": "ws.update_component_state('component-id', {'key': 'value'})",
+          "use_case": "Update component state across all connected clients"
+        },
+        {
+          "name": "broadcasting",
+          "code": "ws.broadcast_message({'type': 'notification', 'data': message})",
+          "use_case": "Send messages to all connected clients"
+        }
+      ],
+      "ai_guidance": "Requires flask-socketio package. Use for real-time features like chat, live updates, notifications"
+    },
+    "state_stores": {
+      "description": "Redux-like state management for complex applications",
+      "importance": "medium",
+      "setup_code": "from newui.stores import Store\n\nstore = Store('app-store', initial_state={'count': 0})",
+      "ai_guidance": "Use for complex state that needs to be shared across multiple components"
+    },
+    "component_composition": {
+      "description": "Building complex UIs by composing smaller components",
+      "importance": "medium",
+      "ai_guidance": "Break complex UI into smaller, reusable components. Use slots for flexible layouts"
+    }
+  },
+  "css_framework_integration": {
+    "tailwind_css": {
+      "description": "Works seamlessly with Tailwind CSS including v4.0",
+      "setup": "Include Tailwind CSS CDN or build process",
+      "example": "{{ ui.button('Save', class_='px-4 py-2 bg-blue-500 text-white rounded') }}",
+      "ai_guidance": "Use class_ parameter (not class) to avoid Python keyword conflicts",
+      "v4_support": "Full support for Tailwind CSS v4.0 with @theme directive"
+    },
+    "bootstrap": {
+      "description": "Compatible with Bootstrap classes",
+      "example": "{{ ui.button('Save', class_='btn btn-primary') }}",
+      "ai_guidance": "Bootstrap classes work directly on components"
+    },
+    "custom_css": {
+      "description": "Works with any CSS framework or custom styles",
+      "ai_guidance": "Always use class_ parameter for CSS classes in components"
+    }
+  },
+  "common_patterns": {
+    "form_handling": {
+      "problem": "Creating forms with validation and submission",
+      "solution": "<form data-ui-submit=\"handleForm\">\n  {{ ui.input('email', type='email', required=True) }}\n  {{ ui.button('Submit', type='submit') }}\n</form>",
+      "javascript": "NewUI.registerHandler('handleForm', function(element, event) {\n  const formData = new FormData(element);\n  // Process form data\n});",
+      "ai_guidance": "Use FormData for easy form processing"
+    },
+    "dynamic_lists": {
+      "problem": "Rendering and updating lists of items",
+      "solution": "Use data binding with array iteration in JavaScript",
+      "template": "<div id=\"item-list\"></div>",
+      "javascript": "function renderItems(items) {\n  document.getElementById('item-list').innerHTML = items.map(item => \n    `<div>${item.name}</div>`\n  ).join('');\n}",
+      "ai_guidance": "Combine server-side rendering with client-side updates for best performance"
+    },
+    "modal_dialogs": {
+      "problem": "Creating popup dialogs and modals",
+      "solution": "Use CSS framework modal classes with NewUI event handlers",
+      "ai_guidance": "Control modal visibility with JavaScript, use CSS for styling"
+    }
+  },
+  "troubleshooting": {
+    "common_issues": [
+      {
+        "issue": "Components not responding to events",
+        "cause": "Handler not registered or incorrect handler name",
+        "solution": "Ensure NewUI.registerHandler() is called with correct name",
+        "ai_guidance": "Always check handler names match between template and JavaScript"
+      },
+      {
+        "issue": "State not updating",
+        "cause": "Component ID not found or incorrect state key",
+        "solution": "Use NewUI.getComponentId() to get correct component ID",
+        "ai_guidance": "Component IDs are auto-generated, always use getComponentId()"
+      },
+      {
+        "issue": "AJAX requests not working",
+        "cause": "Missing CSRF token or incorrect route",
+        "solution": "Include CSRF token in forms, verify route exists",
+        "ai_guidance": "Flask-WTF CSRF protection requires tokens in AJAX requests"
+      }
+    ]
+  },
+  "examples_library": {
+    "description": "Reference implementations for common use cases",
+    "examples": [
+      {
+        "name": "todo_app.py",
+        "description": "Complete CRUD application with task management",
+        "features": ["AJAX forms", "Dynamic lists", "State management"],
+        "complexity": "beginner"
+      },
+      {
+        "name": "tailwind_modern_ui.py",
+        "description": "Modern dashboard with Tailwind CSS v4.0",
+        "features": ["Dark mode", "Responsive design", "Interactive components"],
+        "complexity": "intermediate"
+      },
+      {
+        "name": "realtime_chat.py",
+        "description": "Real-time chat application with WebSockets",
+        "features": ["WebSocket integration", "Real-time updates", "Room management"],
+        "complexity": "advanced"
+      }
+    ]
+  },
+  "ai_assistance_guidelines": {
+    "code_generation": {
+      "always_include": [
+        "Import statements (Flask, NewUI, components)",
+        "App initialization with NewUI",
+        "Template with proper data attributes",
+        "JavaScript handlers for interactivity"
+      ],
+      "best_practices": [
+        "Use semantic component names",
+        "Include error handling in handlers",
+        "Provide fallbacks for JavaScript-disabled users",
+        "Use progressive enhancement approach"
+      ]
+    },
+    "debugging_assistance": [
+      "Check browser console for JavaScript errors",
+      "Verify component IDs are correctly generated",
+      "Ensure handlers are registered before DOM ready",
+      "Validate data attribute syntax"
+    ],
+    "optimization_tips": [
+      "Use server-side rendering for initial page load",
+      "Minimize JavaScript for better performance",
+      "Leverage browser caching for static assets",
+      "Use AJAX for partial updates only when needed"
+    ]
+  },
+  "integration_points": {
+    "flask_extensions": {
+      "flask_wtf": "Use for CSRF protection and form validation",
+      "flask_login": "Compatible with user authentication",
+      "flask_sqlalchemy": "Works with any ORM for data persistence"
+    },
+    "frontend_tools": {
+      "css_frameworks": ["Tailwind CSS", "Bootstrap", "Bulma", "Foundation"],
+      "icon_libraries": ["Font Awesome", "Heroicons", "Feather Icons"],
+      "build_tools": "Optional - works without build step"
+    }
+  },
+  "performance_considerations": {
+    "server_side": "Minimal overhead on Flask applications",
+    "client_side": "Lightweight JavaScript footprint",
+    "scaling": "Suitable for small to medium applications",
+    "caching": "Compatible with standard Flask caching strategies"
+  }
+}
