@@ -2,7 +2,6 @@
 include README.md
 include LICENSE
 include CHANGELOG.md
-include requirements.txt
 
 # Include static assets
 recursive-include newui/static *.js *.css

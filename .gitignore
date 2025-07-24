@@ -74,3 +74,6 @@ Thumbs.db
 # AI
 .claude/
 .claudeignore
+
+pip_runbook.md
+.pypirc

@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
+requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "flask-newui"
-dynamic = ["version"]
+version = "1.0.0"
 description = "A modern reactive frontend framework that bridges Flask/Jinja2 with modern UI capabilities"
 readme = "README.md"
 license = {file = "LICENSE"}

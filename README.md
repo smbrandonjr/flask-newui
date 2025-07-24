@@ -548,7 +548,7 @@ python examples/debug_tools.py
 
 ## 🤝 Community
 
-- **GitHub**: [flask-newui/flask-newui](https://github.com/smbrandonjr/flask-newui)
+- **GitHub**: [smbrandonjr/flask-newui](https://github.com/smbrandonjr/flask-newui)
 - **Issues**: [Report bugs or request features](https://github.com/smbrandonjr/flask-newui/issues)
 - **Discussions**: [Community discussions](https://github.com/smbrandonjr/flask-newui/discussions)
 
